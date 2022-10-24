@@ -1,4 +1,4 @@
-package com.testwizardapp.testwizardapp.service;
+package com.testwizardapp.testwizardapp.question.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,6 @@ import java.nio.ByteBuffer;
 
 @Service
 @Slf4j
-@AllArgsConstructor
 public record FileManager(@Autowired S3Client s3Client) {
 
     private final static String bucket = "testwizard";

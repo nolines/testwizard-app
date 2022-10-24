@@ -1,8 +1,7 @@
-package com.testwizardapp.testwizardapp.controller;
+package com.testwizardapp.testwizardapp.question.controller;
 
-import com.testwizardapp.testwizardapp.domain.Question;
-import com.testwizardapp.testwizardapp.service.QuestionService;
-import lombok.AllArgsConstructor;
+import com.testwizardapp.testwizardapp.question.domain.Question;
+import com.testwizardapp.testwizardapp.question.service.QuestionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,12 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@RestController("/questions")
 @Slf4j
-@AllArgsConstructor
 public record QuestionController(QuestionService questionService) {
 
-    @PostMapping("/questions")
+    @PostMapping
     void submitQuestions(@RequestBody Question question) {
         questionService.submit(question);
     }

@@ -1,4 +1,4 @@
-package com.testwizardapp.testwizardapp.domain;
+package com.testwizardapp.testwizardapp.question.domain;
 
 public enum Level {
     Easy,
