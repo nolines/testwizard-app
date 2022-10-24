@@ -19,11 +19,9 @@ import java.nio.ByteBuffer;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class FileManager {
+public record FileManager(@Autowired S3Client s3Client) {
 
     private final static String bucket = "testwizard";
-    @Autowired
-    private final S3Client s3Client;
 
     public String upload(String keyName, byte[] attachment) {
         try {
