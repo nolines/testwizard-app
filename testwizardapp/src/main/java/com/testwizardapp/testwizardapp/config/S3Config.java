@@ -13,7 +13,7 @@ public class S3Config {
     public S3Client s3Client() {
         return S3Client.builder()
                 .region(Region.of("eu-central-1"))
-                .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create("xxxxxx", "xxxxx")))
+                .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create("AKIA56X4C2LWWWHCUHNI", "6L6pzsyqv4/68US4aQCvT0641A5Y34sVNJIm+3i1")))
                 .build();
     }
 }
