@@ -9,6 +9,9 @@ import java.util.List;
 
 @Repository
 public interface QuestionRepository extends MongoRepository<Question, String> {
-    @Query(value = "{unit:'?0'}")
-    List<Question> findByUnit(String unit);
+    @Query("{subject:'?0'}")
+    List<Question> findBySubject(String subject);
+
+    @Query("{subject:'?0', unit:'?1'}")
+    List<Question> findBySubjectAndUnit(String subject, String unit);
 }
