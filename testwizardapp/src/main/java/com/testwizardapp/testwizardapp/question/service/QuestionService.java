@@ -17,6 +17,7 @@ public class QuestionService {
     private QuestionRepository questionRepository;
     public void submit(Question question) {
         System.out.println(question.getFileKey());
+        questionRepository.save(question);
         fileManager.upload(question.getFileKey(), question.getFile());
     }
 
