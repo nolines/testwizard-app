@@ -12,9 +12,9 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public record QuestionService(FileManager fileManager,
-                              QuestionRepository questionRepository) {
-
+public class QuestionService {
+    private FileManager fileManager;
+    private QuestionRepository questionRepository;
     public void submit(Question question) {
         System.out.println(question.getFileKey());
         fileManager.upload(question.getFileKey(), question.getFile());

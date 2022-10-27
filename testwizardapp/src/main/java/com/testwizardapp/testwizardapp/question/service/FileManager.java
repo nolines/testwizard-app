@@ -1,6 +1,5 @@
 package com.testwizardapp.testwizardapp.question.service;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,9 +17,12 @@ import java.nio.ByteBuffer;
 
 @Service
 @Slf4j
-public record FileManager(@Autowired S3Client s3Client) {
+public class FileManager {
 
     private final static String bucket = "testwizard";
+
+    @Autowired
+    private S3Client s3Client;
 
     public String upload(String keyName, byte[] attachment) {
         try {

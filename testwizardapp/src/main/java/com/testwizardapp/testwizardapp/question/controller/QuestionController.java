@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController("/questions")
+@RestController(value = "/questions")
 @Slf4j
-public record QuestionController(QuestionService questionService) {
-
+public class QuestionController {
+    private QuestionService questionService;
     @PostMapping
     void submitQuestions(@RequestBody Question question) {
         questionService.submit(question);
