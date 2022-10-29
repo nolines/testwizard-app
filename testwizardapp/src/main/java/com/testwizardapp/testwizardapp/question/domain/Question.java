@@ -15,5 +15,6 @@ public class Question {
     private String subject;
     private Level level;
     private String answer;
+    private boolean deleted;
 }
 

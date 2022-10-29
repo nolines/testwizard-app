@@ -38,7 +38,11 @@ public class QuestionService {
         return questionRepository.findBySubjectAndUnit(subject, unit);
     }
 
-    public void delete(String id) {
-        questionRepository.deleteById(id);
+    public boolean delete(String id) {
+        var question = questionRepository.findById(id).orElseThrow(() -> new RuntimeException(String.format("Question with the id %s not found.", id)));
+        var fileRemovalSuccess = fileManager.remove(question.getFileKey());
+        question.setDeleted(fileRemovalSuccess);
+        questionRepository.save(question);
+        return fileRemovalSuccess;
     }
 }

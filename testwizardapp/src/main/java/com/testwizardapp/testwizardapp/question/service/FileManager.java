@@ -8,9 +8,9 @@ import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.exception.SdkServiceException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetUrlRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -27,7 +27,7 @@ public class FileManager {
     public String upload(String keyName, byte[] attachment) {
         try {
             log.info("Uploading a PDF to S3 - {}", keyName);
-            PutObjectResponse putObjectResult = s3Client.putObject(
+            var putObjectResult = s3Client.putObject(
                     PutObjectRequest.builder()
                             .bucket(bucket)
                             .key(keyName)
@@ -52,5 +52,14 @@ public class FileManager {
             log.error("Error Message: {}, {}", keyName, ace.getMessage());
             throw ace;
         }
+    }
+
+    public boolean remove(String keyName) {
+        log.info("Removing file with key - {}", keyName);
+        var deleteObjectResp = s3Client.deleteObject(DeleteObjectRequest.builder().bucket(bucket).key(keyName).build());
+
+        var deletionSuccessful = deleteObjectResp.deleteMarker();
+        log.info("File removal successful : {} - for file key : {}", deletionSuccessful, keyName);
+        return deletionSuccessful;
     }
 }

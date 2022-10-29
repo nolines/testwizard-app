@@ -33,8 +33,14 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable(value = "id") String id) {
-        questionService.delete(id);
+    ResponseEntity delete(@PathVariable(value = "id") String id) {
+        var success = questionService.delete(id);
+
+        if (success) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @GetMapping(value = {"/subject/{subject}/{unit}", "/subject/{subject}"})
