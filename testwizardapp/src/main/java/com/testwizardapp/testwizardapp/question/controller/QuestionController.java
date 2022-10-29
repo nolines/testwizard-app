@@ -1,5 +1,6 @@
 package com.testwizardapp.testwizardapp.question.controller;
 
+import com.testwizardapp.testwizardapp.question.domain.Level;
 import com.testwizardapp.testwizardapp.question.domain.Question;
 import com.testwizardapp.testwizardapp.question.service.QuestionService;
 import lombok.AllArgsConstructor;
@@ -39,8 +40,12 @@ public class QuestionController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/unit")
-    ResponseEntity<List<Question>> getQuestionByUnit(@PathVariable(value = "unit") String unit) {
-        return ResponseEntity.ok().body(questionService.getByUnit(unit));
+    @GetMapping(value = {"/subject/{subject}/{unit}", "/subject/{subject}"})
+    ResponseEntity<List<Question>> search(
+            @PathVariable(value = "subject") String subject,
+            @PathVariable(value = "unit") Optional<String> unit,
+            @PathVariable(value = "level") Optional<Level> level) {
+
+        return ResponseEntity.ok().body(questionService.getBy(subject, unit, level));
     }
 }

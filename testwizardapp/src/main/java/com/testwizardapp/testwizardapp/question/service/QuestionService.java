@@ -45,4 +45,15 @@ public class QuestionService {
         questionRepository.save(question);
         fileManager.remove(question.getFileKey());
     }
+
+    public List<Question> getBy(String subject, Optional<String> unit, Optional<Level> level) {
+        if (unit.isEmpty() && level.isEmpty()) {
+            return questionRepository.findBySubject(subject);
+        } else if (unit.isPresent() && level.isEmpty()) {
+            return questionRepository.findBySubjectAndUnit(subject, unit.get());
+        } else if (unit.isEmpty() && level.isPresent()) {
+            return questionRepository.findBySubjectAndLevel(subject, level.get());
+        }
+        return questionRepository.findBySubject(subject);
+    }
 }
