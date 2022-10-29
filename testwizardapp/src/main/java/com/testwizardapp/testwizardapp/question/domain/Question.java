@@ -1,20 +1,26 @@
 package com.testwizardapp.testwizardapp.question.domain;
 
 import lombok.Data;
+import lombok.NonNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
 @Document(value = "question")
+@Data
 public class Question {
     @Id
     private String id;
-    private byte[] file;
+    @NonNull
     private String fileKey;
-    private String unit;
+    @NonNull
     private String subject;
+    @NonNull
+    private String unit;
+    @NonNull
     private Level level;
+    @NonNull
     private String answer;
+    @NonNull
     private boolean deleted;
 }
 

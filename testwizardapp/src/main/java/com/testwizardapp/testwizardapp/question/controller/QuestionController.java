@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +19,8 @@ public class QuestionController {
     private QuestionService questionService;
 
     @PostMapping
-    void submitQuestions(@RequestBody Question question) {
-        questionService.submit(question);
+    void submitQuestions(@RequestBody @Valid QuestionCreateRequest req) {
+        questionService.submit(req.file(), req.subject(), req.unit(), req.level(), req.answer());
     }
 
     @GetMapping("/{id}")
