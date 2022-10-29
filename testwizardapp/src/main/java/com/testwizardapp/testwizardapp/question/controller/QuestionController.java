@@ -43,13 +43,8 @@ public class QuestionController {
         }
     }
 
-    @GetMapping(value = {"/subject/{subject}/{unit}", "/subject/{subject}"})
-    ResponseEntity<List<Question>> getQuestionByUnit(
-            @PathVariable(value = "subject") String subject,
-            @PathVariable(value = "unit") Optional<String> unit) {
-
-        return unit.isPresent() ?
-                ResponseEntity.ok().body(questionService.getBySubjectAndUnit(subject, unit.get())) :
-                ResponseEntity.ok().body(questionService.getBySubject(subject));
+    @GetMapping("/unit")
+    ResponseEntity<List<Question>> getQuestionByUnit(@PathVariable(value = "unit") String unit) {
+        return ResponseEntity.ok().body(questionService.getByUnit(unit));
     }
 }

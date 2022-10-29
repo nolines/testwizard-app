@@ -15,7 +15,6 @@ import java.util.Optional;
 public class QuestionService {
     private FileManager fileManager;
     private QuestionRepository questionRepository;
-
     public void submit(Question question) {
         System.out.println(question.getFileKey());
         questionRepository.save(question);
@@ -30,12 +29,8 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
-    public List<Question> getBySubject(String subject) {
-        return questionRepository.findBySubject(subject);
-    }
-
-    public List<Question> getBySubjectAndUnit(String subject, String unit) {
-        return questionRepository.findBySubjectAndUnit(subject, unit);
+    public List<Question> getByUnit(String unit) {
+        return questionRepository.findByUnit(unit);
     }
 
     public boolean delete(String id) {
