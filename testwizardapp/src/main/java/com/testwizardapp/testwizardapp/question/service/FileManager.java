@@ -54,12 +54,11 @@ public class FileManager {
         }
     }
 
-    public boolean remove(String keyName) {
+    public void remove(String keyName) {
         log.info("Removing file with key - {}", keyName);
         var deleteObjectResp = s3Client.deleteObject(DeleteObjectRequest.builder().bucket(bucket).key(keyName).build());
 
-        var deletionSuccessful = deleteObjectResp.deleteMarker();
-        log.info("File removal successful : {} - for file key : {}", deletionSuccessful, keyName);
-        return deletionSuccessful;
+        deleteObjectResp.deleteMarker();
+        log.info("File removal successful : {} - for file key : {}", keyName);
     }
 }

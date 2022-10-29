@@ -15,6 +15,7 @@ import java.util.Optional;
 public class QuestionService {
     private FileManager fileManager;
     private QuestionRepository questionRepository;
+
     public void submit(Question question) {
         System.out.println(question.getFileKey());
         questionRepository.save(question);
@@ -33,11 +34,11 @@ public class QuestionService {
         return questionRepository.findByUnit(unit);
     }
 
-    public boolean delete(String id) {
+    public void delete(String id) {
         var question = questionRepository.findById(id).orElseThrow(() -> new RuntimeException(String.format("Question with the id %s not found.", id)));
-        var fileRemovalSuccess = fileManager.remove(question.getFileKey());
-        question.setDeleted(fileRemovalSuccess);
+
+        question.setDeleted(true);
         questionRepository.save(question);
-        return fileRemovalSuccess;
+        fileManager.remove(question.getFileKey());
     }
 }
