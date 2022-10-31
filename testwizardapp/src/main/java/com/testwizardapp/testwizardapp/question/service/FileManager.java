@@ -24,17 +24,17 @@ public class FileManager {
     @Autowired
     private S3Client s3Client;
 
-    public String upload(String keyName, byte[] attachment) {
+    public String upload(String keyName, String base64File) {
         try {
-            log.info("Uploading a PDF to S3 - {}", keyName);
+            byte[] bI = org.apache.commons.codec.binary.Base64.decodeBase64((base64File.substring(base64File.indexOf(",") + 1)).getBytes());
             var putObjectResult = s3Client.putObject(
                     PutObjectRequest.builder()
                             .bucket(bucket)
                             .key(keyName)
-                            .contentType(MediaType.APPLICATION_PDF.toString())
-                            .contentLength((long) attachment.length)
+                            .contentType(MediaType.IMAGE_JPEG.toString())
+                            .contentLength((long) bI.length)
                             .build(),
-                    RequestBody.fromByteBuffer(ByteBuffer.wrap(attachment)));
+                    RequestBody.fromByteBuffer(ByteBuffer.wrap(bI)));
             final URL reportUrl = s3Client.utilities().getUrl(GetUrlRequest.builder().bucket(bucket).key(keyName).build());
             log.info("putObjectResult = " + putObjectResult);
             log.info("reportUrl = " + reportUrl);

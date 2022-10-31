@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,7 +22,7 @@ public class QuestionService {
 
     public void submit(String file, String subject, String unit, Level level, String answer) {
         var question = new Question(UUID.randomUUID().toString(), subject, unit, level, answer, false);
-        fileManager.upload(question.getFileKey(), Base64.decodeBase64(file));
+        fileManager.upload(question.getFileKey(), file);
         question = questionRepository.save(question);
         log.info("Question saved with id {}, fileKey {}", question.getId(), question.getFileKey());
     }
