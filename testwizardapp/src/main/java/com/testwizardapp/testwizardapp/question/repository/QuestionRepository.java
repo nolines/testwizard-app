@@ -20,8 +20,8 @@ public interface QuestionRepository extends MongoRepository<Question, String> {
     List<Question> findBySubjectAndUnit(String subject, String unit);
 
     @Query("{subject:'?0', unit:'?1', level: '?2'}")
-    List<Question> findBySubjectAndUnitAndLevel(String subject, String unit, Level level);
+    List<Question> findBySubjectAndUnitAndLevel(String subject, String unit, String level);
 
     @Query("{subject:'?0', level:'?1'}")
-    List<Question> findBySubjectAndLevel(String subject, Level level);
+    List<Question> findBySubjectAndLevel(String subject, String level);
 }

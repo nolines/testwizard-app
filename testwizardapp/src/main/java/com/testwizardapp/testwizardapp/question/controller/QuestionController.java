@@ -40,7 +40,13 @@ public class QuestionController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = {"/subject/{subject}/{unit}", "/subject/{subject}"})
+    @GetMapping(
+            value = {
+                    "/subject/{subject}",
+                    "/subject/{subject}/unit/{unit}",
+                    "/subject/{subject}/unit/{unit}/level/{level}",
+                    "/subject/{subject}/level/{level}"
+            })
     ResponseEntity<List<Question>> search(
             @PathVariable(value = "subject") String subject,
             @PathVariable(value = "unit") Optional<String> unit,

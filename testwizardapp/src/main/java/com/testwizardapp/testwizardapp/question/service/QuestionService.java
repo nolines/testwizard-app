@@ -5,10 +5,8 @@ import com.testwizardapp.testwizardapp.question.domain.Question;
 import com.testwizardapp.testwizardapp.question.repository.QuestionRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -48,12 +46,12 @@ public class QuestionService {
     }
 
     public List<Question> getBy(String subject, Optional<String> unit, Optional<Level> level) {
-        if (unit.isEmpty() && level.isEmpty()) {
-            return questionRepository.findBySubject(subject);
+        if (unit.isPresent() && level.isPresent()) {
+            return questionRepository.findBySubjectAndUnitAndLevel(subject, unit.get(), level.get().toString());
         } else if (unit.isPresent() && level.isEmpty()) {
             return questionRepository.findBySubjectAndUnit(subject, unit.get());
         } else if (unit.isEmpty() && level.isPresent()) {
-            return questionRepository.findBySubjectAndLevel(subject, level.get());
+            return questionRepository.findBySubjectAndLevel(subject, level.get().toString());
         }
         return questionRepository.findBySubject(subject);
     }
